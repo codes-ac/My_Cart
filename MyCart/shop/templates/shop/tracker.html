@@ -37,7 +37,7 @@
         <h2>Your Ordered items</h2>
         <div class="my-4">
             <ul class="list-group" id="citems">
-
+                Your Ordered Item Will Appear Here
             </ul>
         </div>
     </div>
@@ -83,9 +83,10 @@
 
             .done(function (data) {
                 // console.log(data)
+                $('#citems').empty();
                 data = JSON.parse(data);
-                update = data[0];
-                if (data.length > 0 & data != {}) {
+                if (data['status'] == 'success') {
+                    update = data['updates'];
                     for (item in update) {
                         let text = update[item]['text'];
                         let time = update[item]['time'];
@@ -95,7 +96,7 @@
                                 </li>`
                         $('#items').append(mystr);
                     }
-                    cart = JSON.parse(data[1])
+                    cart = JSON.parse(data["items_json"]);
                     for (item in cart) {
                         let name = cart[item][1];
                         let qty = cart[item][0];
@@ -111,6 +112,7 @@
                              Sorry !! We are unable track your Order.
                             </li>`
                     $('#items').append(mystr);
+                    $('#citems').append(mystr);
                 }
             });
         event.preventDefault();
